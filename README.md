@@ -28,6 +28,18 @@ make install
 codex-token summary
 ```
 
+如需卸载命令：
+
+```bash
+make uninstall
+```
+
+如果你没有使用 `make`，也可以直接执行：
+
+```bash
+python3 -m pip uninstall codex-token-count
+```
+
 如需自定义默认行为，在项目目录或其父目录放置 `.codex-token.toml`：
 
 ```toml
