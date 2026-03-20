@@ -92,12 +92,21 @@ class AnalyticsTests(unittest.TestCase):
         self.assertEqual(cost["total_cost_usd"], 8.53)
 
     def test_build_summary(self) -> None:
-        summary = build_summary(make_threads(), make_events(), PricingConfig(2.5, 0.25, 15.0))
+        summary = build_summary(
+            make_threads(),
+            make_events(),
+            PricingConfig(2.5, 0.25, 15.0),
+            now=ts("2026-03-15T23:00:00+00:00"),
+        )
         self.assertEqual(summary["scope"], "summary")
         self.assertEqual(summary["sessions"], 3)
         self.assertEqual(summary["projects"], 2)
         self.assertEqual(summary["usage"]["total_tokens"], 108)
         self.assertEqual(summary["cost"]["total_cost_usd"], 0.0)
+        self.assertEqual(len(summary["trend_rows"]), 7)
+        self.assertIn("cost", summary["trend_rows"][-1])
+        self.assertEqual(summary["trend_rows"][-1]["date"], "2026-03-15")
+        self.assertEqual(summary["trend_rows"][-1]["cost"]["total_cost_usd"], 0.0)
 
     def test_build_daily_trend(self) -> None:
         trend = build_daily_trend(

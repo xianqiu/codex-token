@@ -13,6 +13,23 @@ from codex_token_count.cli import main
 
 
 class CliTests(unittest.TestCase):
+    def test_default_command_matches_summary_text(self) -> None:
+        with tempfile_directory() as tmp_path:
+            build_codex_fixture(tmp_path / ".codex")
+            write_config(tmp_path)
+            output = run_cli(tmp_path)
+            self.assertIn("Usage Summary", output)
+            self.assertIn("7-Day Usage", output)
+
+    def test_default_command_matches_summary_json(self) -> None:
+        with tempfile_directory() as tmp_path:
+            build_codex_fixture(tmp_path / ".codex")
+            write_config(tmp_path)
+            output = run_cli(tmp_path, "--json")
+            payload = json.loads(output)
+            self.assertEqual(payload["scope"], "summary")
+            self.assertEqual(payload["sessions"], 3)
+
     def test_summary_command_json_includes_usage_and_cost(self) -> None:
         with tempfile_directory() as tmp_path:
             build_codex_fixture(tmp_path / ".codex")
@@ -27,6 +44,7 @@ class CliTests(unittest.TestCase):
             self.assertEqual(len(payload["trend_rows"]), 7)
             self.assertEqual(payload["usage"]["cached_input_tokens"], 5)
             self.assertIsNotNone(payload["cost"])
+            self.assertTrue(all("cost" in row for row in payload["trend_rows"]))
 
     def test_summary_text_hides_breakdown(self) -> None:
         with tempfile_directory() as tmp_path:
@@ -40,6 +58,7 @@ class CliTests(unittest.TestCase):
             self.assertIn("Estimated Cost", output)
             self.assertIn("7-Day", output)
             self.assertIn("30-Day", output)
+            self.assertIn("Cost", output)
             self.assertNotIn("Breakdown", output)
 
     def test_trend_command_uses_config_default_days(self) -> None:

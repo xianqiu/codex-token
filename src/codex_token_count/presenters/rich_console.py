@@ -123,10 +123,16 @@ def print_summary_view(console: Console, payload: dict[str, object]) -> None:
     trend_table.add_column("Date", style="bold")
     trend_table.add_column("Tokens", justify="right", style="magenta")
     trend_table.add_column("Bar", style="cyan")
+    show_cost = any(row.get("cost") is not None for row in trend_rows)
+    if show_cost:
+        trend_table.add_column("Cost", justify="right", style="green")
     max_value = max((row["usage"]["total_tokens"] for row in trend_rows), default=0)
     for row in reversed(trend_rows):
         value = int(row["usage"]["total_tokens"])
-        trend_table.add_row(str(row["date"]), _fmt_int(value), _spark_bar(value, max_value))
+        rendered = [str(row["date"]), _fmt_int(value), _spark_bar(value, max_value)]
+        if show_cost:
+            rendered.append(_fmt_money(row["cost"]["total_cost_usd"]) if row.get("cost") is not None else "-")
+        trend_table.add_row(*rendered)
     console.print(Padding(trend_table, (1, 1, 0, 1)))
     updated_text = Text(f"Last updated {_fmt_datetime(payload.get('last_updated_at'))}")
     console.print(Padding(updated_text, (1, 0, 1, 0)), justify="center")

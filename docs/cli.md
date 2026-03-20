@@ -39,12 +39,16 @@ output_per_million_usd = 15.0
 
 ## Commands
 
+默认情况下，`codex-token` 不带子命令时等价于 `codex-token summary`。
+
 ### `summary`
 
 查看全局总览。
 
 ```bash
+codex-token
 codex-token summary
+codex-token --json
 codex-token --json summary
 ```
 

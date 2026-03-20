@@ -14,7 +14,7 @@ def build_parser() -> argparse.ArgumentParser:
     parser = argparse.ArgumentParser(prog="codex-token", description="Analyze local Codex token usage.")
     parser.add_argument("--json", action="store_true", dest="as_json", help="Output JSON.")
 
-    subparsers = parser.add_subparsers(dest="command", required=True)
+    subparsers = parser.add_subparsers(dest="command")
     subparsers.add_parser("summary", help="Show global usage summary.")
 
     trend_parser = subparsers.add_parser("trend", help="Show daily token trend.")
@@ -40,6 +40,7 @@ def _print_json(value: object) -> None:
 def main(argv: list[str] | None = None) -> int:
     parser = build_parser()
     args = parser.parse_args(argv)
+    args.command = args.command or "summary"
     config = load_config()
     console = None if args.as_json else build_console()
 

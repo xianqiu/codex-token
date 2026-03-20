@@ -20,7 +20,14 @@ def build_summary(
     event_items = list(token_events)
     usage = usage_from_events(event_items)
     project_count = len(build_project_names(thread.cwd for thread in items))
-    trend_rows = daily_usage_from_events(event_items, days=7, now=now)
+    trend_rows = [
+        {
+            "date": row["date"],
+            "usage": row["usage"],
+            "cost": estimate_cost(row["usage"], pricing),
+        }
+        for row in daily_usage_from_events(event_items, days=7, now=now)
+    ]
     last_7_days_tokens = sum(int(row["usage"]["total_tokens"]) for row in trend_rows)
     last_30_days_rows = daily_usage_from_events(event_items, days=30, now=now)
     last_30_days_tokens = sum(int(row["usage"]["total_tokens"]) for row in last_30_days_rows)

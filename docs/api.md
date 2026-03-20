@@ -51,6 +51,7 @@
 命令：
 
 ```bash
+codex-token --json
 codex-token --json summary
 ```
 
@@ -75,6 +76,18 @@ codex-token --json summary
         "output_tokens": 700,
         "reasoning_output_tokens": 120,
         "non_reasoning_output_tokens": 580
+      },
+      "cost": {
+        "currency": "USD",
+        "input_cost_usd": 0.001,
+        "cached_input_cost_usd": 0.000025,
+        "output_cost_usd": 0.0105,
+        "total_cost_usd": 0.011525,
+        "pricing": {
+          "input_per_million_usd": 2.5,
+          "cached_input_per_million_usd": 0.25,
+          "output_per_million_usd": 15.0
+        }
       }
     }
   ],
@@ -109,6 +122,7 @@ codex-token --json summary
 - `tokens_last_7_days`: 最近 7 天新增 token
 - `tokens_last_30_days`: 最近 30 天新增 token
 - `trend_rows`: 最近 7 天每日增量
+- `trend_rows[*].cost`: 当日 usage 的费用估算；未配置 pricing 时为 `null`
 - `usage`: 当前全量累计 usage
 
 ## `trend`

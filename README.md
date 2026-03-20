@@ -25,6 +25,7 @@ make install
 安装完成后，可以直接运行：
 
 ```bash
+codex-token
 codex-token summary
 ```
 
