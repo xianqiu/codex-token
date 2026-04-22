@@ -8,24 +8,13 @@
 - 最近 N 天趋势
 - 项目排行和单项目详情
 
-## Install
+## Run
 
-全局安装：
-
-```bash
-make install
-```
-
-卸载：
+在项目目录内运行：
 
 ```bash
-make uninstall
-```
-
-如果安装后提示 `codex-token: command not found`，确保你的 shell 配置里有：
-
-```bash
-export PATH="$HOME/.local/bin:$PATH"
+uv sync
+uv run codex-token
 ```
 
 ## Configuration
@@ -59,17 +48,17 @@ output_per_million_usd = 15.0
 
 ## Commands
 
-默认情况下，`codex-token` 不带子命令时等价于 `codex-token summary`。
+默认情况下，`uv run codex-token` 不带子命令时等价于 `uv run codex-token summary`。
 
 ### `summary`
 
 查看全局总览。
 
 ```bash
-codex-token
-codex-token summary
-codex-token --json
-codex-token --json summary
+uv run codex-token
+uv run codex-token summary
+uv run codex-token --json
+uv run codex-token --json summary
 ```
 
 文本输出包含：
@@ -85,10 +74,10 @@ codex-token --json summary
 查看最近 N 天的每日 token 趋势。
 
 ```bash
-codex-token trend
-codex-token trend --days 30
-codex-token --json trend
-codex-token --json trend --days 30
+uv run codex-token trend
+uv run codex-token trend --days 30
+uv run codex-token --json trend
+uv run codex-token --json trend --days 30
 ```
 
 参数：
@@ -100,10 +89,10 @@ codex-token --json trend --days 30
 查看项目排行。
 
 ```bash
-codex-token project
-codex-token project --limit 10
-codex-token --json project
-codex-token --json project --limit 10
+uv run codex-token project
+uv run codex-token project --limit 10
+uv run codex-token --json project
+uv run codex-token --json project --limit 10
 ```
 
 参数：
@@ -115,9 +104,9 @@ codex-token --json project --limit 10
 查看单个项目详情。
 
 ```bash
-codex-token project /Users/example/work/foo/api
-codex-token project foo/api
-codex-token --json project /Users/example/work/foo/api
+uv run codex-token project /Users/example/work/foo/api
+uv run codex-token project foo/api
+uv run codex-token --json project /Users/example/work/foo/api
 ```
 
 `project_ref` 支持两种值：
@@ -132,10 +121,10 @@ codex-token --json project /Users/example/work/foo/api
 所有命令都支持全局参数 `--json`：
 
 ```bash
-codex-token --json summary
-codex-token --json trend
-codex-token --json project
-codex-token --json project /Users/example/work/foo/api
+uv run codex-token --json summary
+uv run codex-token --json trend
+uv run codex-token --json project
+uv run codex-token --json project /Users/example/work/foo/api
 ```
 
 JSON 返回结构见 [api.md](./api.md)。

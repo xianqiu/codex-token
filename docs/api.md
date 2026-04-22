@@ -51,8 +51,8 @@
 命令：
 
 ```bash
-codex-token --json
-codex-token --json summary
+uv run codex-token --json
+uv run codex-token --json summary
 ```
 
 返回：
@@ -130,8 +130,8 @@ codex-token --json summary
 命令：
 
 ```bash
-codex-token --json trend
-codex-token --json trend --days 30
+uv run codex-token --json trend
+uv run codex-token --json trend --days 30
 ```
 
 返回：
@@ -181,8 +181,8 @@ codex-token --json trend --days 30
 命令：
 
 ```bash
-codex-token --json project
-codex-token --json project --limit 10
+uv run codex-token --json project
+uv run codex-token --json project --limit 10
 ```
 
 返回：
@@ -235,8 +235,8 @@ codex-token --json project --limit 10
 命令：
 
 ```bash
-codex-token --json project /Users/example/work/foo/api
-codex-token --json project foo/api
+uv run codex-token --json project /Users/example/work/foo/api
+uv run codex-token --json project foo/api
 ```
 
 返回：

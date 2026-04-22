@@ -18,29 +18,12 @@
 
 ## Quick Start
 
-全局安装命令：
+在项目目录内运行：
 
 ```bash
-make install
-```
-
-如果安装后提示 `codex-token: command not found`，说明 `uv` 的工具目录还没进 `PATH`。确保你的 shell 配置里有：
-
-```bash
-export PATH="$HOME/.local/bin:$PATH"
-```
-
-安装完成后，直接运行：
-
-```bash
-codex-token
-codex-token summary
-```
-
-卸载：
-
-```bash
-make uninstall
+uv sync
+uv run codex-token
+uv run codex-token summary
 ```
 
 ## Development
